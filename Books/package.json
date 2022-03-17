@@ -1,0 +1,31 @@
+{
+  "name": "Books",
+  "version": "1.0.0",
+  "description": "Codingly template for Serverless Framework projects",
+  "author": "Ariel Weinberger <ariel@codingly.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "aws-sdk-mock": "^5.6.2",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "chai": "^4.3.6",
+    "mocha": "^9.2.1",
+    "serverless-bundle": "^5.3.0",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "webpack": "^5.69.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "@middy/core": "^2.5.7",
+    "@middy/http-error-handler": "^2.5.7",
+    "@middy/http-event-normalizer": "^2.5.7",
+    "@middy/http-json-body-parser": "^2.5.7",
+    "aws-sdk": "^2.1076.0",
+    "serverless": "^3.7.2"
+  }
+}

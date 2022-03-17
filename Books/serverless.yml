@@ -1,0 +1,83 @@
+service: Books
+
+plugins:
+  - serverless-bundle
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  environment:
+    CRUD_TABLE_NAME: Books
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+        - dynamodb:UpdateItem
+      Resource:
+        - arn:aws:dynamodb:us-east-1:953806394444:table/Books
+  region: us-east-1
+
+resources:
+  Resources:
+    Books:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: Books
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id 
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id 
+            KeyType: HASH
+functions:
+  
+  createBook:
+    handler: src/handlers/createBook.handler
+    events:
+      - http:
+          method: POST    
+          path: book
+          cors: true
+  
+  getBooks:
+    handler: src/handlers/getBooks.handler
+    events:
+      - http:
+          method: GET
+          path: books
+          cors: true
+  
+  getBook:
+    handler: src/handlers/getBook.handler
+    events:
+      - http:
+          method: GET
+          path: book/{id}
+          cors: true
+  
+  deleteBook:
+    handler: src/handlers/deleteBook.handler
+    events:
+      - http:
+          method: DELETE
+          path: book/{id}
+          cors: true
+  
+  updateBook:
+    handler: src/handlers/updateBook.handler
+    events:
+      - http:
+          method: PATCH
+          path: book/{id}    
+          cors: true
+
+custom:
+  bundle:
+    linting: false 
